@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <title>3ra Pre-entrega</title>
+</head>
+<body>
+    <Div class="wrapper">
+        <h1>Bienvenido a nuestro gestor de deudas</h1>
+
+        <section id="inicioSesion">
+            <h2>Iniciar Sesión</h2>
+            <p>Por favor, ingresa tu contraseña para comenzar (la contraseña es "123")</p>
+            <input type="password" id="passwordInput">
+            <button id="iniciarButton">Iniciar sesión</button>
+        </section>
+
+        <section id="funcionalidades" style="display:none;">
+            <h2>Funcionalidades</h2>
+            <p>Aquí puedes encontrar las diferentes funcionalidades que ofrece nuestro gestor de deudas:</p>
+            <button id="consultaSaldo">Consulta de saldo</button>
+                <p id="saldo" style="display: none;"></p>
+                <div id="depositoSection">
+                    <h2>Depósito</h2>
+                    <label for="cantidadDeposito">Cantidad a depositar:</label>
+                    <input type="number" id="cantidadDeposito" required>
+                    <button id="realizarDeposito">Realizar Depósito</button>
+                </div>
+                <div id="mensajeDeposito" style="display:none;"></div>
+            <button id="pagoDeudas">Pago de deudas</button>
+            <button id="verAmigos">Ver amigos</button>
+            <button id="agregarAmigosButton">Agregar amigos</button>
+            <section id="agregarAmigos" style=display:none>
+                <h2>Agregar Amigos</h2>
+                <form id="agregarAmigosForm">
+                    <label for="nombreAmigo">Nombre:</label>
+                    <input type="text" id="nombreAmigo" required><br>
+                    <label for="deudaAmigo">Deuda:</label>
+                    <input type="number" id="deudaAmigo" required><br>
+                    <button type="submit">Agregar Amigo</button>
+                    <button id="finalizarAgregarAmigos">Cerrar</button>
+                </form>
+            </section>
+            <button id="editarAmigos">Editar amigos</button>
+        </section>
+        <div id="tablaAmigos" style="display:none;">
+            <h2>Lista de Amigos</h2>
+            <table id="cuerpoTablaAmigos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Deuda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- tabla de los amigos creados-->
+                </tbody>
+            </table>
+        </div>
+      
+
+        <section id="cierreSesion" style="display:none;">
+          <h2>Cierre de Sesión</h2>
+          <p>Recuerda cerrar sesión cuando hayas terminado de usar el gestor de deudas para proteger tu información.</p>
+          <button id="cerrarSesion">Cerrar Sesión</button>
+        </section>
+    </Div>
+
+
+    <script src="./JS/index.js"></script>
+</body>
+</html>
