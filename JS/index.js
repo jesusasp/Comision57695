@@ -16,16 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const tablaAmigos = document.getElementById("tablaAmigos");
     const mensajesElement = document.getElementById("mensajes");
 
-    const promptContainer = document.getElementById("promptContainer");
-    const promptTitle = document.getElementById("promptTitle");
-    const promptInput = document.getElementById("promptInput");
-    const promptOkButton = document.getElementById("promptOkButton");
-    const promptCancelButton = document.getElementById("promptCancelButton");
-
     let saldo = 1000;
     let amigos = [];
-    let currentPromptCallback;
-    let promptQueue = [];
 
     function mostrarElemento(elemento) {
         elemento.classList.remove('hidden');
@@ -36,29 +28,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function mostrarMensaje(mensaje) {
-        mensajesElement.textContent = mensaje;
-        mostrarElemento(mensajesElement);
-        setTimeout(() => {
-            ocultarElemento(mensajesElement);
-        }, 5000);
+        Swal.fire({
+            icon: 'info',
+            title: 'Información',
+            text: mensaje,
+            timer: 5000,
+            showConfirmButton: false
+        });
     }
 
     function mostrarPrompt(titulo, callback) {
-        if (currentPromptCallback) {
-            promptQueue.push({ titulo, callback });
-        } else {
-            promptTitle.textContent = titulo;
-            promptInput.value = '';
-            currentPromptCallback = callback;
-            mostrarElemento(promptContainer);
-        }
-    }
-
-    function procesarSiguientePrompt() {
-        if (promptQueue.length > 0) {
-            const siguientePrompt = promptQueue.shift();
-            mostrarPrompt(siguientePrompt.titulo, siguientePrompt.callback);
-        }
+        Swal.fire({
+            title: titulo,
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                callback(result.value);
+            }
+        });
     }
 
     function Amigo(nombre, deuda) {
@@ -75,7 +65,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     cantidadAPagar = parseFloat(cantidadAPagar);
 
                     if (isNaN(cantidadAPagar) || cantidadAPagar <= 0 || cantidadAPagar > saldo || cantidadAPagar > amigoEncontrado.deuda) {
-                        alert("La cantidad ingresada no es válida.");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'La cantidad ingresada no es válida.'
+                        });
                         return;
                     }
 
@@ -85,7 +79,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     mostrarAmigos(); // Actualizar la lista de amigos
                 });
             } else {
-                alert("El amigo ingresado no corresponde a ningún contacto.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El amigo ingresado no corresponde a ningún contacto.'
+                });
             }
         });
         return saldo;
@@ -123,7 +121,11 @@ document.addEventListener("DOMContentLoaded", function() {
             mostrarElemento(document.getElementById("cierreSesion"));
             ocultarElemento(document.getElementById("inicioSesion"));
         } else {
-            alert("Contraseña incorrecta. Intenta nuevamente.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Contraseña incorrecta. Intenta nuevamente.'
+            });
         }
     });
 
@@ -141,8 +143,11 @@ document.addEventListener("DOMContentLoaded", function() {
             cantidadDepositoInput.value = ''; // Limpiar el input
             actualizarSaldo();
         } else {
-            mensajeDeposito.textContent = "Por favor, ingresa una cantidad válida para depositar.";
-            mostrarElemento(mensajeDeposito);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, ingresa una cantidad válida para depositar.'
+            });
         }
     });
 
@@ -168,7 +173,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const deuda = parseFloat(document.getElementById("deudaAmigo").value);
 
         if (isNaN(deuda) || deuda < 0) {
-            alert("La deuda debe ser un número positivo.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'La deuda debe ser un número positivo.'
+            });
             return;
         }
 
@@ -200,7 +209,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 nuevaDeuda = parseFloat(nuevaDeuda);
 
                                 if (nuevaDeuda < 0 || isNaN(nuevaDeuda)) {
-                                    alert("La deuda debe ser un número positivo.");
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'La deuda debe ser un número positivo.'
+                                    });
                                     return;
                                 }
 
@@ -209,7 +222,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 mostrarAmigos(); // Actualizar la lista de amigos
                             });
                         } else {
-                            alert("El amigo ingresado no corresponde a ningún contacto.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'El amigo ingresado no corresponde a ningún contacto.'
+                            });
                         }
                     });
                     break;
@@ -222,12 +239,20 @@ document.addEventListener("DOMContentLoaded", function() {
                             mostrarMensaje(`El amigo ${amigoBorrar} ha sido eliminado.`);
                             mostrarAmigos(); // Actualizar la lista de amigos
                         } else {
-                            alert("El amigo ingresado no corresponde a ningún contacto.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'El amigo ingresado no corresponde a ningún contacto.'
+                            });
                         }
                     });
                     break;
                 default:
-                    alert("Opción no válida");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Opción no válida.'
+                    });
                     break;
             }
         });
@@ -239,21 +264,6 @@ document.addEventListener("DOMContentLoaded", function() {
         ocultarElemento(document.getElementById("cierreSesion"));
         ocultarElemento(tablaAmigos); // Ocultar la tabla de amigos al cerrar sesión
         mostrarMensaje("Sesión cerrada.");
-    });
-
-    promptOkButton.addEventListener("click", function() {
-        if (currentPromptCallback) {
-            currentPromptCallback(promptInput.value);
-            currentPromptCallback = null;
-        }
-        ocultarElemento(promptContainer);
-        procesarSiguientePrompt();
-    });
-
-    promptCancelButton.addEventListener("click", function() {
-        ocultarElemento(promptContainer);
-        currentPromptCallback = null;
-        procesarSiguientePrompt();
     });
 
     // Cargar datos desde un JSON local

@@ -1,1 +1,3 @@
-Tercera Pre-entrega, proyecto en construccion de gestion de deudas.
+Entrega Final: Proyecto de Gestión de Deudas
+
+Este programa tiene como objetivo facilitar la gestión de tus gastos y deudas de manera eficiente. Con esta herramienta, podrás registrar a tus amigos y conocidos, realizar depósitos y mantener un seguimiento preciso de tus deudas. De esta forma, podrás estar al tanto de a quién le debes dinero y gestionar tus finanzas sin afectar tus ingresos totales. Esta solución simple y efectiva te ayudará a mantener tus finanzas personales bajo control y evitar sorpresas desagradables.
