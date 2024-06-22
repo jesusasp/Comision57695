@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #f9f9f9;
+    background-color: #c0c0c0;
     color: #333;
     line-height: 1.6;
 }
@@ -18,7 +18,7 @@ body {
     max-width: 800px;
     margin: 2rem auto;
     padding: 1rem;
-    background-color: #fff;
+    background-color: #f3f3f3;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -31,7 +31,7 @@ h1 {
 
 h1 span {
     font-size: 2.5rem;
-    background-color: #defc52;
+    background-color: #1565c0;
     padding: 0 0.4rem;
     font-weight: 700;
 }
@@ -39,7 +39,7 @@ h1 span {
 h2 {
     margin: 20px 0 10px;
     font-size: 1.5rem;
-    border-bottom: 2px solid #defc52;
+    border-bottom: 2px solid #1565c0;
     padding-bottom: 5px;
 }
 
@@ -49,7 +49,7 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #defc52;
+    background-color: #1565c0;
     color: #333;
     font-size: 1rem;
     font-weight: 700;
@@ -58,7 +58,7 @@ button {
 }
 
 button:hover {
-    background-color: #c8eb1e;
+    background-color: #6db1fd;
 }
 
 input[type="text"],
@@ -67,7 +67,7 @@ input[type="number"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     border-radius: 5px;
     font-size: 1rem;
 }
@@ -127,7 +127,7 @@ tr:hover {
 #cierreSesion {
     margin-top: 20px;
     padding-top: 10px;
-    border-top: 2px solid #defc52;
+    border-top: 2px solid #1565c0;
     text-align: center;
 }
 
