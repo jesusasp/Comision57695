@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const realizarDepositoButton = document.getElementById("realizarDeposito");
     const mensajeDeposito = document.getElementById("mensajeDeposito");
     const tablaAmigos = document.getElementById("tablaAmigos");
-    const mensajesElement = document.getElementById("mensajes");
 
     let saldo = 1000;
     let amigos = [];
@@ -76,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     amigoEncontrado.deuda -= cantidadAPagar;
                     saldo -= cantidadAPagar;
                     mostrarMensaje(`Has pagado ${cantidadAPagar} a ${amigoAPagar}. La nueva deuda es de ${amigoEncontrado.deuda}. Tu nuevo saldo es: ${saldo}`);
+                    actualizarSaldo(); // Actualizar la interfaz con el nuevo saldo
                     mostrarAmigos(); // Actualizar la lista de amigos
                 });
             } else {
@@ -266,8 +266,8 @@ document.addEventListener("DOMContentLoaded", function() {
         mostrarMensaje("Sesión cerrada.");
     });
 
-    // Cargar datos desde un JSON local
-    fetch('./data.json')
+    // Cargar datos desde el archivo JSON local
+    fetch('./amigos.json')
         .then(response => response.json())
         .then(data => {
             amigos = data.map(item => new Amigo(item.nombre, item.deuda));

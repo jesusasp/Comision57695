@@ -1,0 +1,5 @@
+[
+    { "nombre": "Alejandro", "deuda": 100 },
+    { "nombre": "Ana", "deuda": 150 },
+    { "nombre": "Eugenia", "deuda": 200 }
+]
