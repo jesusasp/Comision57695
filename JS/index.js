@@ -55,6 +55,18 @@ document.addEventListener("DOMContentLoaded", function() {
         this.deuda = deuda;
     }
 
+    function guardarAmigosEnLocalStorage() {
+        localStorage.setItem('amigos', JSON.stringify(amigos));
+    }
+
+    function cargarAmigosDesdeLocalStorage() {
+        const amigosGuardados = localStorage.getItem('amigos');
+        if (amigosGuardados) {
+            amigos = JSON.parse(amigosGuardados).map(item => new Amigo(item.nombre, item.deuda));
+            mostrarAmigos();
+        }
+    }
+
     function pagarDeuda(amigos, saldo) {
         mostrarPrompt("Ingrese el nombre del amigo al que desea pagarle la deuda:", function(amigoAPagar) {
             let amigoEncontrado = amigos.find(amigo => amigo.nombre.toLowerCase() === amigoAPagar.toLowerCase());
@@ -76,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     saldo -= cantidadAPagar;
                     mostrarMensaje(`Has pagado ${cantidadAPagar} a ${amigoAPagar}. La nueva deuda es de ${amigoEncontrado.deuda}. Tu nuevo saldo es: ${saldo}`);
                     actualizarSaldo(); // Actualizar la interfaz con el nuevo saldo
+                    guardarAmigosEnLocalStorage(); // Guardar cambios en localStorage
                     mostrarAmigos(); // Actualizar la lista de amigos
                 });
             } else {
@@ -120,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
             mostrarElemento(document.getElementById("funcionalidades"));
             mostrarElemento(document.getElementById("cierreSesion"));
             ocultarElemento(document.getElementById("inicioSesion"));
+            cargarAmigosDesdeLocalStorage(); // Cargar amigos desde localStorage al iniciar sesión (?)
         } else {
             Swal.fire({
                 icon: 'error',
@@ -188,6 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         ocultarElemento(formularioAgregarAmigos);
         mostrarElemento(agregarAmigosButton);
+        guardarAmigosEnLocalStorage(); // Guardar cambios en localStorage
         mostrarAmigos(); // Actualizar la lista de amigos
     });
 
@@ -219,6 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                                 amigoEncontrado.deuda = nuevaDeuda;
                                 mostrarMensaje(`La deuda de ${amigoEditar} ha sido actualizada a ${nuevaDeuda}.`);
+                                guardarAmigosEnLocalStorage(); // Guardar cambios en localStorage
                                 mostrarAmigos(); // Actualizar la lista de amigos
                             });
                         } else {
@@ -237,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (amigoAEliminar !== -1) {
                             amigos.splice(amigoAEliminar, 1);
                             mostrarMensaje(`El amigo ${amigoBorrar} ha sido eliminado.`);
+                            guardarAmigosEnLocalStorage(); // Guardar cambios en localStorage
                             mostrarAmigos(); // Actualizar la lista de amigos
                         } else {
                             Swal.fire({
@@ -271,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             amigos = data.map(item => new Amigo(item.nombre, item.deuda));
+            guardarAmigosEnLocalStorage(); // Guardar en localStorage la primera vez
             mostrarAmigos();
         })
         .catch(error => console.error('Error cargando datos:', error));
