@@ -64,6 +64,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (amigosGuardados) {
             amigos = JSON.parse(amigosGuardados).map(item => new Amigo(item.nombre, item.deuda));
             mostrarAmigos();
+        } else {
+            // Cargar datos desde el archivo JSON local si no hay datos en localStorage
+            fetch('./amigos.json')
+                .then(response => response.json())
+                .then(data => {
+                    amigos = data.map(item => new Amigo(item.nombre, item.deuda));
+                    guardarAmigosEnLocalStorage(); // Guardar en localStorage la primera vez
+                    mostrarAmigos();
+                })
+                .catch(error => console.error('Error cargando datos:', error));
         }
     }
 
@@ -133,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
             mostrarElemento(document.getElementById("funcionalidades"));
             mostrarElemento(document.getElementById("cierreSesion"));
             ocultarElemento(document.getElementById("inicioSesion"));
-            cargarAmigosDesdeLocalStorage(); // Cargar amigos desde localStorage al iniciar sesión (?)
         } else {
             Swal.fire({
                 icon: 'error',
@@ -283,13 +292,6 @@ document.addEventListener("DOMContentLoaded", function() {
         mostrarMensaje("Sesión cerrada.");
     });
 
-    // Cargar datos desde el archivo JSON local
-    fetch('./amigos.json')
-        .then(response => response.json())
-        .then(data => {
-            amigos = data.map(item => new Amigo(item.nombre, item.deuda));
-            guardarAmigosEnLocalStorage(); // Guardar en localStorage la primera vez
-            mostrarAmigos();
-        })
-        .catch(error => console.error('Error cargando datos:', error));
+    // Cargar datos desde localStorage al iniciar la página
+    cargarAmigosDesdeLocalStorage();
 });
